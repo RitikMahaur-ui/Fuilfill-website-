@@ -1,0 +1,421 @@
+/* ===== General Reset ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden; /* stop sideways sliding on phone */
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ffffff;
+  color: black;
+  line-height: 1.6;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 8%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-text { font-style: sans-serif; font-weight: bold; font-size: 1.6rem; color: #E60023; }
+
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  background: #ffde59; /* Yellow buttons */
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+  display: inline-block;
+}
+.nav-links a:hover { background: #ffd633; }
+
+/* ===== Hero Section ===== */
+.hero {
+  display: flex;
+  justify-content: center;
+  padding: 40px 8%;
+}
+
+.hero-left { width: 100%; max-width: 1100px; }
+
+/* Headings */
+.hero-heading { font-size: 2rem; color: black; margin-bottom: 10px; }
+.hero-left p { margin-bottom: 20px; color: #ffff; }
+
+/* Search (left) + Video (right) in one row */
+.search-map-container {
+  display: grid;
+  grid-template-columns: 1fr 420px; /* left search, right video */
+  align-items: stretch; /* fix typo from 'strech' */
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* --- Minimal additions for visible map & results (kept simple) --- */
+.left-pane { display: flex; flex-direction: column; gap: 12px; }
+.search-row { display: grid; grid-template-columns: 1fr 220px; gap: 12px; }
+
+.search-results, #results {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px;
+  max-height: 240px;
+  overflow: auto;
+  font-size: 0.95rem;
+  display: none; /* hidden until we have results */
+}
+
+/* Search box styling (original look with yellow button) */
+.search-box {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.search-box input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+.search-box button {
+  padding: 10px 14px;
+  border: none;
+  background: #ffde59;   /* <- yellow as you wanted */
+  border-radius: 6px;
+  cursor: pointer;
+  color: #333;
+  font-weight: 600;
+}
+.search-box button:hover { background: #ffd633; }
+
+/* Small map right next to search */
+.mini-map, #map {
+  width: 100%;
+  height: 210px;  /* consistent with your video height */
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+/* Video at the right */
+.search-video { width: 100%; }
+.search-video video {
+  width: 100%;
+  height: 210px;        /* consistent height next to search */
+  border-radius: 10px;
+  object-fit: cover;    /* fills area without distortion */
+}
+
+/* Images under the row */
+.map-placeholder iframe { border-radius: 8px; }
+.animated-images { display: none; } /* you asked to remove the two images */
+.animated-images img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+}
+
+/* ===== Info Section ===== */
+.info-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 8%;
+  background: #fafafa;
+  flex-wrap: wrap;
+  font-style: italic;
+  font-weight: 500;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: 0.5px;
+}
+.info-box { max-width: 400px; margin: 10px; text-align: center; color: #222; }
+.info-box h2 { color: #222222; margin-bottom: 10px; }
+
+/* ===== Services Section ===== */
+.services-section { padding: 40px 8%; }
+.section-title { text-align: center; font-size: 1.8rem; color: black; margin-bottom: 30px; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.service-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+.service-btn {
+  width: 100%;
+  background: #ffde59;
+  color: #333;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.service-btn:hover { background: #ffd633; }
+.service-content { max-height: 0; overflow: hidden; padding: 0 15px; transition: max-height 0.4s ease; }
+.service-content p { margin: 15px 0 5px; }
+.price { font-weight: bold; color: #333; display: inline-block; margin-bottom: 15px; }
+
+/* ===== Contact Section (center & clean) ===== */
+.contact-section {
+  text-align: center;
+  padding: 40px 8%;
+  background: #fff;
+}
+.contact-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #222;
+}
+.contact-section p {
+  font-size: 1.05rem;
+  color: #444;
+}
+
+/* ===== Footer ===== */
+footer { text-align: center; padding: 15px 0; background: #f5f5f5; color: #555; font-size: 0.9rem; }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .search-map-container { grid-template-columns: 1fr; }
+  .search-row { grid-template-columns: 1fr; } /* stack search and small map on mobile */
+  .search-video video { height: 210px; }
+  .hero-left { max-width: 100%; }
+}
+
+.h2 { text-align: center; }
+
+/* Back to Top Button (original) */
+.button {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+  background-color: #1b4552;
+  border: none;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px double #e9e9e9;
+  border-radius: 15px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: fixed;
+  bottom: 80px;   /* lifted so it won’t overlap the chatbot icon */
+  right: 20px;
+  z-index: 999;
+}
+
+.svgIcon { width: 12px; transition-duration: 0.3s; }
+.svgIcon path { fill: #e9e9e9; }
+
+.button:hover {
+  width: 140px;
+  border-radius: 15px;
+  transition-duration: 0.3s;
+  background-color: #1b4552;
+  align-items: center;
+}
+.button:hover .svgIcon { transition-duration: 0.3s; transform: translateY(-200%); }
+.button::before {
+  position: absolute;
+  bottom: -20px;
+  content: "Back to Top";
+  color: #e9e9e9;
+  font-size: 0px;
+}
+.button:hover::before {
+  font-family: Garet;
+  font-size: 15px;
+  opacity: 1;
+  bottom: unset;
+  transition-duration: 0.3s;
+}
+
+/* Chatbot */
+.chatbot-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ffde59;
+  color: black;
+  font-size: 24px;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+.chatbot-window {
+  display: none;             /* closed by default */
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  overflow: hidden;
+  z-index: 10000;
+  display: none;
+  flex-direction: column;
+}
+
+.chatbot-header {
+  background: #ffde59;
+  padding: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.bot-message {
+  background: #f1f1f1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+}
+
+.user-message {
+  background: #d1f7d6;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+  text-align: right;
+}
+
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+.chatbot-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+.chatbot-input button {
+  background: #ffde59;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Dark Mode */
+body.dark { background: #121212; color: #f1f1f1; }
+body.dark .navbar { background: #1e1e1e; border-bottom: 1px solid #333; }
+body.dark .nav-links a { background: #333; color: #fff; }
+body.dark .nav-links a:hover { background: #444; }
+body.dark .info-section { background: #1a1a1a; color: #ddd; }
+body.dark .service-card { background: #1e1e1e; border: 1px solid #333; box-shadow: 0 2px 8px rgba(255,255,255,0.05); }
+body.dark .service-btn { background: #333; color: #fff; }
+body.dark footer { background: #1e1e1e; color: #aaa; }
+body.dark .chatbot-window { background: #222; color: #fff; }
+body.dark .bot-message { background: #333; }
+body.dark .user-message { background: #555; }
+
+/* ===== H1 Styling ===== */
+h1 {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 900;
+  font-size: 2.6rem;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #1b4552;  /* Deep modern blue */
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Trendy underline effect */
+h1::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ffde59, #ff914d);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+/* ✅ Fix for map & video overlapping in landscape/mobile */
+.search-map-container {
+  display: flex;
+  flex-wrap: wrap;   /* allow wrapping on small screens */
+  gap: 20px;
+}
+
+/* Left side (search + map) */
+.left-pane {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Right side (video) */
+.search-video {
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-video video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Fix overlap in smaller / rotated screens */
+@media (max-width: 900px) {
+  .search-map-container {
+    flex-direction: column;   /* stack vertically */
+  }
+
+  .search-video,
+  .left-pane {
+    width: 100%;   /* full width */
+  }
+
+  #map.mini-map {
+    width: 100%;
+    height: 250px;  /* smaller height for mobile */
+  }
+.below-video-poster {
+  display: block;
+  width: 100%;      /* take full width of container */
+  height: auto;     /* keep aspect ratio */
+  margin-top: 15px; /* space below video */
+  border-radius: 10px;
+  object-fit: cover; /* ensures it fills nicely without distortion */
+}
+  
