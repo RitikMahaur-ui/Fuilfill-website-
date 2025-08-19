@@ -1,175 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fuelfill</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuelfill</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="navbar">
+      <a href="/" class="logo">
+        <span class="logo-text"><em>Fuelfill ⛽</em></span>
+      </a>
 
-  <!-- Navbar (original look) -->
-  <header class="navbar">
-    <div class="logo">
-      <span class="logo-text"><em>Fuelfill ⛽</em></span>
-    </div>
-    <nav class="nav-links">
-      <a href="#">Home</a>
+      <!-- Desktop Navigation -->
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <!-- Actions (Theme + Hamburger) -->
+      <div class="nav-actions">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <span aria-label="Toggle dark mode">🌙</span>
+        </div>
+
+        <!-- Hamburger Menu (Mobile Only) -->
+        <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="/">Home</a>
       <a href="#contact">Contact</a>
       <a href="#about">About</a>
     </nav>
-    <!-- Dark Mode Toggle (kept minimal) -->
-    <div class="theme-toggle">
-      <input type="checkbox" id="theme-switch" onchange="toggleTheme()">
-      <label for="theme-switch" aria-label="Toggle dark mode">🌙</label>
-    </div>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-left">
-      <!-- Original heading kept -->
-      <h1 class="hero-heading">Find Nearby Petrol Pumps Instantly</h1>
-      <p>Discover the nearest fuel stations in seconds — because every drop of time and fuel counts.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-left">
+        <h1 class="hero-heading">Find Nearby Petrol Pumps Instantly</h1>
+        <p>
+          Discover the nearest fuel stations in seconds – because every drop of
+          time and fuel counts.
+        </p>
 
-      <!-- Search (left) + Video (right) -->
-      <div class="search-map-container">
-
-        <!-- LEFT: search + small map + results -->
-        <div class="left-pane">
-          <div class="search-row">
-            <div class="search-box">
-              <input type="text" placeholder="Enter your location" />
-              <button id="searchBtn">Search</button>
+        <div class="search-map-container">
+          <div class="left-pane">
+            <div class="search-row">
+              <div class="search-box">
+                <input type="text" placeholder="Enter your location" />
+                <button id="searchBtn">Search</button>
+              </div>
+              <div
+                id="map"
+                class="mini-map"
+                aria-label="Map showing petrol pumps"
+              ></div>
             </div>
-            <!-- visible mini map right of search bar -->
-            <div id="map" class="mini-map" aria-label="Map showing petrol pumps"></div>
+            <div id="results" class="search-results" aria-live="polite"></div>
           </div>
 
-          <!-- search results directly below the search bar -->
-          <div id="results" class="search-results" aria-live="polite"></div>
-        </div>
-
-        <!-- RIGHT: original video -->
-       <div class="search-video">
-  <video autoplay muted loop playsinline>
-    <source src="1098887015-preview.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
-
-      </div>
-      
-</div>
-
-      <!-- (You asked to remove the two JPGs, so omitted) -->
-
-
-    </div>
-  </section>
-
-
-<img class="below-video-poster" src="istockphoto-1420110406-612x612.jpg" alt="Fuel service poster">
-
-  <!-- Services Section (unchanged content) -->
-  <section class="services-section">
-    <h2 class="section-title">Services & Pricing</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <button class="service-btn">Fuel Delivery</button>
-        <div class="service-content">
-          <p>On-demand delivery to your location (within 5 km)</p>
-          <span class="price">₹80 per trip + fuel cost</span>
+          <div class="search-video">
+            <video autoplay muted loop playsinline>
+              <source src="1098887015-preview.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="service-card">
-        <button class="service-btn">Car Wash</button>
-        <div class="service-content">
-          <p>Exterior and interior cleaning</p>
-          <span class="price">₹300</span>
+    <div class="below-video-poster-container">
+      <img
+        class="below-video-poster"
+        src="istockphoto-1420110406-612x612.jpg"
+        alt="Fuel service poster"
+      />
+    </div>
+
+    <!-- Services Section -->
+    <section class="services-section">
+      <h2 class="section-title">Services & Pricing</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <button class="service-btn">Fuel Delivery</button>
+          <div class="service-content">
+            <p>On-demand delivery to your location (within 5 km)</p>
+            <span class="price">₹80 per trip + fuel cost</span>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-btn">Car Wash</button>
+          <div class="service-content">
+            <p>Exterior and interior cleaning</p>
+            <span class="price">₹300</span>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-btn">Oil Change</button>
+          <div class="service-content">
+            <p>Engine oil replacement with top-grade oil</p>
+            <span class="price">₹1200</span>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-btn">Tyre Air Filling</button>
+          <div class="service-content">
+            <p>Nitrogen or air fill</p>
+            <span class="price">₹50 per tyre</span>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <button class="service-btn">AI Fuel Price Advisor</button>
+          <div class="service-content">
+            <p>
+              Compares live prices to recommend the cheapest and fastest option
+              nearby
+            </p>
+            <span class="price">Free</span>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="service-card">
-        <button class="service-btn">Oil Change</button>
-        <div class="service-content">
-          <p>Engine oil replacement with top-grade oil</p>
-          <span class="price">₹1200</span>
+    <!-- Info Section -->
+    <section class="info-section">
+      <div class="info-box">
+        <h2>How We Help</h2>
+        <p>
+          We connect you to the closest petrol pumps with real-time updates so
+          you never run out of fuel.
+        </p>
+      </div>
+      <div class="info-box" id="about">
+        <h2>About</h2>
+        <p>
+          Fuelfill is your trusted fuel-finding companion, helping you save
+          time, money, and effort.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <h2>Contact Us</h2>
+      <p>E-mail: contact@fuelfill.com</p>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button class="button" id="backToTop" aria-label="Back to top">
+      <svg viewBox="0 0 384 512" class="svgIcon" aria-hidden="true">
+        <path
+          d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+        ></path>
+      </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-bottom">
+        <p>© 2025 Fuelfill. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Floating Chatbot -->
+    <div
+      class="chatbot-icon"
+      id="chatbotIcon"
+      aria-label="Open chat"
+      role="button"
+    >
+      🤖
+    </div>
+
+    <div class="chatbot-window" id="chatbot" aria-live="polite">
+      <div class="chatbot-header">
+        AI Assistant
+        <span
+          id="chatbotClose"
+          style="cursor: pointer"
+          aria-label="Close chat"
+          role="button"
+          >✖</span
+        >
+      </div>
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="bot-message">
+          Hi 👋, I'm your AI assistant! Ask me about petrol pumps 🚗⛽
         </div>
       </div>
-
-      <div class="service-card">
-        <button class="service-btn">Tyre Air Filling</button>
-        <div class="service-content">
-          <p>Nitrogen or air fill</p>
-          <span class="price">₹50 per tyre</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <button class="service-btn">AI Fuel Price Advisor</button>
-        <div class="service-content">
-          <p>Compares live prices to recommend the cheapest and fastest option nearby</p>
-          <span class="price">Free</span>
-        </div>
+      <div class="chatbot-input">
+        <input
+          type="text"
+          id="chatbot-input"
+          placeholder="Type your question..."
+        />
+        <button id="chatbotSend">Send</button>
       </div>
     </div>
-  </section>
 
-  <!-- Info Section -->
-  <section class="info-section">
-    <div class="info-box">
-      <h2>How We Help</h2>
-      <p>We connect you to the closest petrol pumps with real-time updates so you never run out of fuel.</p>
-    </div>
-    <div class="info-box" id="about">
-      <h2>About</h2>
-      <p>Fuelfill is your trusted fuel-finding companion, helping you save time, money, and effort.</p>
-    </div>
-  </section>
-
-  <!-- Contact Section (centered) -->
-  <section id="contact" class="contact-section">
-    <h2>Contact Us</h2>
-    <p>E-mail: contact@fuelfill.com</p>
-  </section>
-
-  <!-- Back to Top Button (your original) -->
-  <button class="button" id="backToTop" aria-label="Back to top">
-    <svg viewBox="0 0 384 512" class="svgIcon" aria-hidden="true">
-      <path
-        d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
-      ></path>
-    </svg>
-  </button>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-bottom">
-      <p>© 2025 Fuelfill. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Floating Chatbot: closed by default -->
-  <div class="chatbot-icon" id="chatbotIcon" aria-label="Open chat" role="button">🤖</div>
-
-  <div class="chatbot-window" id="chatbot" aria-live="polite">
-    <div class="chatbot-header">
-      AI Assistant
-      <span id="chatbotClose" style="cursor:pointer;" aria-label="Close chat" role="button">✖</span>
-    </div>
-    <div class="chatbot-messages" id="chatbot-messages">
-      <div class="bot-message">Hi 👋, I’m your AI assistant! Ask me about petrol pumps 🚗⛽</div>
-    </div>
-    <div class="chatbot-input">
-      <input type="text" id="chatbot-input" placeholder="Type your question...">
-      <button id="chatbotSend">Send</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-    </html>
+    <script src="script.js"></script>
+  </body>
+</html>
